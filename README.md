@@ -8,7 +8,11 @@ For install use command - **Install-Package BlazorSvgHelper -Version 1.0.0**
 
 You can create svg element and add children (circle, rectangle, image, text and etc) and finaly render this svg with blazor RenderTreeBuilder.
 
-Examples:
+
+![image](https://raw.githubusercontent.com/Lupusa87/BlazorSvgHelper/master/Untitled.png)
+
+
+Usage:
 ```
  public svg ComposeSVG()
   {
@@ -43,3 +47,11 @@ Examples:
       SvgHelper.Cmd_Render(_svg, 0, builder);
   }
   ```
+
+You can compose more complex svg.
+
+For example this helper was used [here](https://lupusablazordemos.azurewebsites.net/)
+
+You can see code how this svg was composed [here](https://github.com/Lupusa87/LupusaBlazorProjects/blob/master/ClockSVGComponent/ClockSVG.cs)
+
+Any PRs are welcome.
