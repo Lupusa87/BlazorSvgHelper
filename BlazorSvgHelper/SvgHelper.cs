@@ -18,7 +18,7 @@ namespace BlazorSvgHelper
 
 
             builder.OpenElement(k++, _Item.GetType().Name);
-            //Console.WriteLine("open " + _Item.GetType().Name);
+
 
             foreach (PropertyInfo pi in _Item.GetType().GetProperties().Where(x => !x.PropertyType.Name.Contains("ICollection")))
             {
