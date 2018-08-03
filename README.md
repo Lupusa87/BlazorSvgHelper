@@ -1,4 +1,4 @@
-# Blazor Sv gHelper
+# Blazor Svg Helper
 
 This repo contains svg classes for using in blazor.
 
