@@ -31,7 +31,7 @@ Usage:
                       cy = 0,
                       r = 30,
                       fill = "red",
-                      transform = "translate("50,50")",
+                      transform = "translate(50,50)",
                   });
                   
    return _svg
