@@ -4,7 +4,7 @@ This repo contains svg classes for using in blazor.
 
 [Project](https://www.nuget.org/packages/BlazorSvgHelper/) is available on nuget.
 
-For install use command - Install-Package BlazorSvgHelper -Version 1.0.0
+For install use command - **Install-Package BlazorSvgHelper -Version 1.0.0**
 
 You can create svg element and add children (circle, rectangle, image, text and etc) and finaly render this svg with blazor RenderTreeBuilder.
 
