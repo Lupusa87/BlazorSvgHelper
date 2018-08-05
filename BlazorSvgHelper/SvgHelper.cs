@@ -90,6 +90,8 @@ namespace BlazorSvgHelper
 
             builder.CloseElement();
             //Console.WriteLine("close element " + _Item.GetType().Name.ToLower());
+
+            
         }
     }
 }
