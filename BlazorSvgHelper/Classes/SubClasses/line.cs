@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace BlazorSvgHelper.Classes.SubClasses
 {
-    public class line: strokeBase
+    public class line: strokeBase, IBaseElement
     {
+        public string id { get; set; } = null;
+        public bool CaptureRef { get; set; } = false;
+
+
         public double x1 { get; set; } = double.NaN;
         public double y1 { get; set; } = double.NaN;
         public double x2 { get; set; } = double.NaN;

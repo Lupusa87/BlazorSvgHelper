@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace BlazorSvgHelper.Classes.SubClasses
 {
-    public class image
+    public class image : IBaseElement
     {
+        public string id { get; set; } = null;
+        public bool CaptureRef { get; set; } = false;
+
+
         public double x { get; set; } = double.NaN;
         public double y { get; set; } = double.NaN;
         public double width { get; set; } = double.NaN;
