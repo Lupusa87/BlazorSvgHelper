@@ -34,7 +34,7 @@ Usage:
                       transform = "translate(50,50)",
                   });
                   
-   return _svg
+   return _svg;
  }
 ```
 
@@ -44,7 +44,7 @@ Usage:
   protected override void BuildRenderTree(RenderTreeBuilder builder)
   {
       svg _svg = ComposeSVG();
-      SvgHelper.Cmd_Render(_svg, 0, builder);
+      new SvgHelper().Cmd_Render(_svg, 0, builder);
   }
   ```
 
