@@ -11,7 +11,6 @@ namespace BlazorSvgHelper.Classes
             butt,
             round,
             square,
-
         }
    
 }

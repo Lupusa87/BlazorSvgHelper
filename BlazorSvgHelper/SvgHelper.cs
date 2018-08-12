@@ -12,7 +12,6 @@ namespace BlazorSvgHelper
   {
     public Action<UIMouseEventArgs> ActionClicked;
 
-
     public Dictionary<string, ElementRef> Elementreferences_Dictionary = new Dictionary<string, ElementRef>();
 
 
@@ -70,7 +69,7 @@ namespace BlazorSvgHelper
       foreach (PropertyInfo pi in _Item.GetType().GetProperties().Where(x => !x.PropertyType.Name.Contains("ICollection") && !x.PropertyType.Name.Contains("CaptureRef")))
       {
         IsAllowed = true;
-        //Console.WriteLine("prop name - " + pi.Name +" ; type- " + pi.PropertyType.Name + " isclass = "+ pi.PropertyType.IsClass.ToString());
+        
         _value = pi.GetValue(_Item, null);
 
         if (pi.PropertyType == typeof(double))
@@ -107,7 +106,7 @@ namespace BlazorSvgHelper
             if (_attrName.Equals("content"))
             {
               builder.AddContent(k++, _value.ToString());
-              //Console.WriteLine("add content - " + _value.ToString());
+             
             }
             else
             {
@@ -116,13 +115,8 @@ namespace BlazorSvgHelper
                 _attrName = _attrName.Replace("_", "-");
               }
 
-              //if (_attrName.Contains("99"))
-              //{
-              //  _attrName = _attrName.Replace("99", ":");
-              //}
-
               builder.AddAttribute(k++, _attrName, _value.ToString());
-              // Console.WriteLine("set attribute - " + _attrName + " = " + _value.ToString());
+              
             }
 
           }
@@ -155,10 +149,7 @@ namespace BlazorSvgHelper
       }
 
       builder.CloseElement();
-      //Console.WriteLine("close element " + _Item.GetType().Name.ToLower());
-
-
-
+    
     }
 
 
@@ -167,6 +158,5 @@ namespace BlazorSvgHelper
           ActionClicked?.Invoke(e);
       }
 
-   
   }
 }
