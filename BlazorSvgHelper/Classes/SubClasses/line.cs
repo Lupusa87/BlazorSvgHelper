@@ -19,5 +19,7 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public string transform { get; set; } = null;
         public double opacity { get; set; } = double.NaN;
         public ICollection<object> Children { get; set; } = new List<object>();
+
+        public string onclick { get; set; } = null;
     }
 }

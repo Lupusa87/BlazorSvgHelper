@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Blazor;
+﻿using BlazorSvgHelper.Classes;
+using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.RenderTree;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,10 @@ namespace BlazorSvgHelper
   {
     public Action<UIMouseEventArgs> ActionClicked;
 
-    public Dictionary<string, ElementRef> Elementreferences_Dictionary = new Dictionary<string, ElementRef>();
+
+        public Action<int> ActionSelected;
+
+        public Dictionary<string, ElementRef> Elementreferences_Dictionary = new Dictionary<string, ElementRef>();
 
 
     public void Reset_Dictionary()
@@ -26,7 +30,7 @@ namespace BlazorSvgHelper
       return Elementreferences_Dictionary;
     }
 
-    public void Cmd_Render<T>(T _Item, int k, RenderTreeBuilder builder)
+    public void Cmd_Render<T>(T _Item, int k, RenderTreeBuilder builder, int Par_ID=0)
     {
       Action<UIMouseEventArgs> act1 = new Action<UIMouseEventArgs>((s) =>
       {
@@ -66,62 +70,82 @@ namespace BlazorSvgHelper
 
 
 
-      foreach (PropertyInfo pi in _Item.GetType().GetProperties().Where(x => !x.PropertyType.Name.Contains("ICollection") && !x.PropertyType.Name.Contains("CaptureRef")))
-      {
-        IsAllowed = true;
-        
-        _value = pi.GetValue(_Item, null);
-
-        if (pi.PropertyType == typeof(double))
-        {
-          if (double.IsNaN((double)_value))
-          {
-            IsAllowed = false;
-
-          }
-          else
-          {
-            _value = Math.Round((double)_value, 2);
-          }
-        }
-
-        if (IsAllowed)
-        {
-          IsAllowed = _value != null && !string.IsNullOrEmpty(_value.ToString());
-        }
-
-
-        if (IsAllowed)
-        {
-          _attrName = pi.Name;
-
-          if (_attrName.Equals("onclick"))
-          {
-
-            builder.AddAttribute(k++, _attrName, act1);
-
-          }
-          else
-          {
-            if (_attrName.Equals("content"))
+            foreach (PropertyInfo pi in _Item.GetType().GetProperties().Where(x => !x.PropertyType.Name.Contains("ICollection") && !x.PropertyType.Name.Contains("CaptureRef")))
             {
-              builder.AddContent(k++, _value.ToString());
-             
-            }
-            else
-            {
-              if (_attrName.Contains("_"))
-              {
-                _attrName = _attrName.Replace("_", "-");
-              }
+                //list can't filter captureref??????
+                if (pi.Name != "CaptureRef")
+                {
+                    
+                    IsAllowed = true;
 
-              builder.AddAttribute(k++, _attrName, _value.ToString());
-              
-            }
+                    _value = pi.GetValue(_Item, null);
 
-          }
-        }
-      }
+                    if (pi.PropertyType == typeof(double))
+                    {
+                        if (double.IsNaN((double)_value))
+                        {
+                            IsAllowed = false;
+
+                        }
+                        else
+                        {
+                            _value = Math.Round((double)_value, 2);
+                        }
+                    }
+
+                    if (IsAllowed)
+                    {
+                        IsAllowed = _value != null && !string.IsNullOrEmpty(_value.ToString());
+                    }
+
+
+                    if (IsAllowed)
+                    {
+                        if (pi.Name == "stroke_linecap")
+                        {
+                            IsAllowed = (strokeLinecap)_value != strokeLinecap.none;
+                        }
+                    }
+
+
+                    if (IsAllowed)
+                    {
+                        _attrName = pi.Name;
+
+                        if (_attrName.Equals("onclick"))
+                        {
+                          
+                            if (Par_ID == 0)
+                            {
+                                builder.AddAttribute(k++, _attrName, act1);
+                            }
+                            else
+                            {
+                                builder.AddAttribute(k++, _attrName, e => ActionSelected?.Invoke(Par_ID));
+                            }
+                        }
+                        else
+                        {
+                            if (_attrName.Equals("content"))
+                            {
+                                builder.AddContent(k++, _value.ToString());
+
+                            }
+                            else
+                            {
+                                if (_attrName.Contains("_"))
+                                {
+                                    _attrName = _attrName.Replace("_", "-");
+                                }
+
+                                builder.AddAttribute(k++, _attrName, _value.ToString());
+
+                            }
+
+                        }
+                    }
+                }
+            }
 
 
       PropertyInfo pi_Children = _Item.GetType().GetProperty("Children");
@@ -132,7 +156,7 @@ namespace BlazorSvgHelper
 
         foreach (object item in children)
         {
-          Cmd_Render(item, k, builder);
+          Cmd_Render(item, k, builder, Par_ID);
         }
       }
 

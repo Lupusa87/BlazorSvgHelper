@@ -14,5 +14,9 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public double height { get; set; } = double.NaN;
         public string xmlns { get; set; } = null;
         public ICollection<object> Children { get; set; } = new List<object>();
+        public string style { get; set; } = null;
+
+        public string transform { get; set; } = null;
+        public string onclick { get; set; } = null;
     }
 }
