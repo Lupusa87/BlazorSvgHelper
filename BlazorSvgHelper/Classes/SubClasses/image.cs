@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BlazorSvgHelper.Classes.SubClasses
 {
@@ -9,8 +6,6 @@ namespace BlazorSvgHelper.Classes.SubClasses
     {
         public string id { get; set; } = null;
         public bool CaptureRef { get; set; } = false;
-
-
         public double x { get; set; } = double.NaN;
         public double y { get; set; } = double.NaN;
         public double width { get; set; } = double.NaN;

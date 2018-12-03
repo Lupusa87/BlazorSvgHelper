@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BlazorSvgHelper.Classes.SubClasses
 {
@@ -14,7 +11,6 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public string fx { get; set; } = null;
         public string fy { get; set; } = null;
         public string fr { get; set; } = null;
-
         public ICollection<object> Children { get; set; } = new List<object>();
     }
 }
