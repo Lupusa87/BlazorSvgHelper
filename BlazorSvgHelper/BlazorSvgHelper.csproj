@@ -12,11 +12,12 @@
     <RepositoryUrl>https://github.com/Lupusa87/BlazorSvgHelper</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageReleaseNotes>First release 8/3/2018
-Second release 8/12/2018</PackageReleaseNotes>
+Second release 8/12/2018
+Third release 12/1/2018</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Lupusa</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 

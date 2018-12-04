@@ -14,6 +14,7 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public string d { get; set; } = null;
 
         public string fill { get; set; } = null;
+        public string transform { get; set; } = null;
 
         public double opacity { get; set; } = double.NaN;
 
