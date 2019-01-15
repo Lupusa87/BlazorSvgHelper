@@ -48,10 +48,30 @@ Usage:
   }
   ```
 
+**SVG helper works only for dynamic component and not for markup.**
+You should create cs file and inside BuildRenderTree method render svg.
+```
+public class SomeComponent:BlazorComponent
+{
+  protected override void BuildRenderTree(RenderTreeBuilder builder)
+  {
+      svg _svg = ComposeSVG();
+      new SvgHelper().Cmd_Render(_svg, 0, builder);
+  }
+}
+```
+
+ Because markup component cshtml file can't override BuildRenderTree method (because blazor itself converts cshtml file to dynamic components) we can't use SvgHelper in cshtml files else we will get error - **Type '__somename' already defines a member called 'BuildRenderTree' with the same parameter types**.
+
+Before use SvgHeler you need to have basic understanding what is and how works dynamic component.
+
 You can compose more complex svg.
 
 For example this helper was used [here](https://lupusablazordemos.azurewebsites.net/)
 
 You can see code how this svg was composed [here](https://github.com/Lupusa87/LupusaBlazorProjects/blob/master/ClockSVGComponent/ClockSVG.cs)
+
+
+For any questions please email me at VakhtangiAbashidze@gmail.com
 
 Any PRs are welcome.
