@@ -18,5 +18,7 @@ namespace BlazorSvgHelper.Classes.SubClasses
 
         public string transform { get; set; } = null;
         public string onclick { get; set; } = null;
+        public string viewBox { get; set; } = null;
+        public string preserveAspectRatio { get; set; } = null;
     }
 }
