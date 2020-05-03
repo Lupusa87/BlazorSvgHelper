@@ -1,38 +1,38 @@
 ﻿using BlazorSvgHelper.Classes;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.RenderTree;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace BlazorSvgHelper
 {
   public class SvgHelper
   {
-    public Action<UIMouseEventArgs> ActionClicked;
+       public Action<MouseEventArgs> ActionClicked;
 
 
         public Action<int> ActionSelected;
 
-        public Dictionary<string, ElementRef> Elementreferences_Dictionary = new Dictionary<string, ElementRef>();
+        public Dictionary<string, ElementReference> Elementreferences_Dictionary = new Dictionary<string, ElementReference>();
 
 
     public void Reset_Dictionary()
     {
-       Elementreferences_Dictionary = new Dictionary<string, ElementRef>();
+       Elementreferences_Dictionary = new Dictionary<string, ElementReference>();
     }
 
 
-    public Dictionary<string, ElementRef> Get_Dictionary()
+    public Dictionary<string, ElementReference> Get_Dictionary()
     {
       return Elementreferences_Dictionary;
     }
 
     public void Cmd_Render<T>(T _Item, int k, RenderTreeBuilder builder, int Par_ID=0)
     {
-      Action<UIMouseEventArgs> act1 = new Action<UIMouseEventArgs>((s) =>
+      Action<MouseEventArgs> act1 = new Action<MouseEventArgs>((s) =>
       {
         Cmd_Clicked(s);
       });
@@ -121,7 +121,7 @@ namespace BlazorSvgHelper
                             }
                             else
                             {
-                                builder.AddAttribute(k++, _attrName, e => ActionSelected?.Invoke(Par_ID));
+                                builder.AddAttribute(k++, _attrName, EventCallback.Factory.Create(this, e => this.ActionSelected?.Invoke(Par_ID)));
                             }
                         }
                         else
@@ -177,7 +177,7 @@ namespace BlazorSvgHelper
     }
 
 
-      public void Cmd_Clicked(UIMouseEventArgs e)
+      public void Cmd_Clicked(MouseEventArgs e)
       {
           ActionClicked?.Invoke(e);
       }
