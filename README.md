@@ -1,22 +1,23 @@
 # Blazor Svg Helper
 
 ![](https://placehold.it/15/4747d1/000000?text=+) 
-If you like my work on blazor and want to see more open sourced demos please support me with donations.
+If you like my blazor works and want to see more open sourced repos please support me with [paypal donation](https://www.paypal.me/VakhtangiAbashidze/10)
 ![](https://placehold.it/15/4747d1/000000?text=+) 
 
-[donate via paypal](https://www.paypal.me/VakhtangiAbashidze/50)
+![](https://placehold.it/15/00e600/000000?text=+) 
+Please send [email](mailto:VakhtangiAbashidze@gmail.com) if you consider to **hire me**.
+![](https://placehold.it/15/00e600/000000?text=+)     
 
 
-![](https://placehold.it/15/00e600/000000?text=+) 
-Please send [email](VakhtangiAbashidze@gmail.com) if you consider to **hire me**.
-![](https://placehold.it/15/00e600/000000?text=+) 
+![](https://placehold.it/15/ffffff/000000?text=+)  
+
 
 
 This repo contains svg classes for using in blazor.
 
 [Project](https://www.nuget.org/packages/BlazorSvgHelper/) is available on nuget.
 
-For install use command - **Install-Package BlazorSvgHelper -Version 1.0.3**
+For install use command - **Install-Package BlazorSvgHelper**
 
 You can create svg element and add children (circle, rectangle, image, text and etc) and finally render this svg with blazor RenderTreeBuilder.
 
@@ -73,15 +74,13 @@ public class SomeComponent:BlazorComponent
 }
 ```
 
- Because markup component cshtml file can't override BuildRenderTree method (because blazor itself converts cshtml file to dynamic components) we can't use SvgHelper in cshtml files else we will get error - **Type '__somename' already defines a member called 'BuildRenderTree' with the same parameter types**.
-
 Before use SvgHeler you need to have basic understanding what is and how works dynamic component.
 
 You can compose more complex svg.
 
 For example this helper was used [here](https://lupusablazordemos.azurewebsites.net/)
 
-You can see code how this svg was composed [here](https://github.com/Lupusa87/LupusaBlazorProjects/blob/master/ClockSVGComponent/ClockSVG.cs)
+You can see code how this svg was composed [here](https://github.com/Lupusa87/LupusaBlazorDemos/blob/master/BlazorClockSvgComponent/CompClockSVG.cs)
 
 
 For any questions please email me at VakhtangiAbashidze@gmail.com
