@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlazorSvgHelper.Classes.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +18,11 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public string style { get; set; } = null;
 
         public string transform { get; set; } = null;
-        public string onclick { get; set; } = null;
-
+        
         public string viewBox { get; set; } = null;
         public string preserveAspectRatio { get; set; } = null;
+
+        public BoolOptionsEnum onclick { get; set; } = BoolOptionsEnum.none;
+        public BoolOptionsEnum StopPropagation { get; set; } = BoolOptionsEnum.none;
     }
 }

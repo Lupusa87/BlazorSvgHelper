@@ -9,64 +9,57 @@ using System.Reflection;
 
 namespace BlazorSvgHelper
 {
-  public class SvgHelper
-  {
-       public Action<MouseEventArgs> ActionClicked;
-
-
-        public Action<int> ActionSelected;
+    public class SvgHelper
+    {
+        public Action<MouseEventArgs, int> ActionClicked;
 
         public Dictionary<string, ElementReference> Elementreferences_Dictionary = new Dictionary<string, ElementReference>();
 
 
-    public void Reset_Dictionary()
-    {
-       Elementreferences_Dictionary = new Dictionary<string, ElementReference>();
-    }
-
-
-    public Dictionary<string, ElementReference> Get_Dictionary()
-    {
-      return Elementreferences_Dictionary;
-    }
-
-    public void Cmd_Render<T>(T _Item, int k, RenderTreeBuilder builder, int Par_ID=0)
-    {
-      Action<MouseEventArgs> act1 = new Action<MouseEventArgs>((s) =>
-      {
-        Cmd_Clicked(s);
-      });
-
-
-      bool CaptureRef = false;
-      string _value_id = string.Empty;
-
-      if (_Item.GetType().GetProperties().Any(x => x.Name == "CaptureRef"))
-      {
-
-        PropertyInfo pi_captureref = _Item.GetType().GetProperty("CaptureRef");
-        if ((bool)pi_captureref.GetValue(_Item, null))
+        public void Reset_Dictionary()
         {
-          if (_Item.GetType().GetProperties().Any(x => x.Name == "id"))
-          {
-            PropertyInfo pi_id = _Item.GetType().GetProperty("id");
-            _value_id = pi_id.GetValue(_Item, null).ToString();
-
-            CaptureRef = _value_id != null && !string.IsNullOrEmpty(_value_id.ToString());
-          }
-
+            Elementreferences_Dictionary = new Dictionary<string, ElementReference>();
         }
-      }
+
+
+        public Dictionary<string, ElementReference> Get_Dictionary()
+        {
+            return Elementreferences_Dictionary;
+        }
+
+        public void Cmd_Render<T>(T _Item, int k, RenderTreeBuilder builder, int Par_ID = 0)
+        {
+            builder.OpenRegion(k++);
+
+            bool CaptureRef = false;
+            string _value_id = string.Empty;
+
+            if (_Item.GetType().GetProperties().Any(x => x.Name == "CaptureRef"))
+            {
+
+                PropertyInfo pi_captureref = _Item.GetType().GetProperty("CaptureRef");
+                if ((bool)pi_captureref.GetValue(_Item, null))
+                {
+                    if (_Item.GetType().GetProperties().Any(x => x.Name == "id"))
+                    {
+                        PropertyInfo pi_id = _Item.GetType().GetProperty("id");
+                        _value_id = pi_id.GetValue(_Item, null).ToString();
+
+                        CaptureRef = _value_id != null && !string.IsNullOrEmpty(_value_id.ToString());
+                    }
+
+                }
+            }
 
 
 
-      object _value;
-      string _attrName = string.Empty;
+            object _value;
+            string _attrName = string.Empty;
 
-      bool IsAllowed = true;
+            bool IsAllowed = true;
 
 
-      builder.OpenElement(k++, _Item.GetType().Name);
+            builder.OpenElement(k++, _Item.GetType().Name);
 
 
 
@@ -75,7 +68,7 @@ namespace BlazorSvgHelper
                 //list can't filter captureref??????
                 if (pi.Name != "CaptureRef")
                 {
-                    
+
                     IsAllowed = true;
 
                     _value = pi.GetValue(_Item, null);
@@ -114,21 +107,23 @@ namespace BlazorSvgHelper
 
                         if (_attrName.Equals("onclick"))
                         {
-                          
-                            if (Par_ID == 0)
+                            if ((BoolOptionsEnum)_value == BoolOptionsEnum.Yes)
                             {
-                                builder.AddAttribute(k++, _attrName, act1);
+                                builder.AddAttribute(1, _attrName, EventCallback.Factory.Create(this, e => Cmd_Clicked(e, Par_ID)));
                             }
-                            else
+                        }
+                        else if(_attrName.ToLower().Equals("stoppropagation"))
+                        {
+                            if ((BoolOptionsEnum)_value == BoolOptionsEnum.Yes)
                             {
-                                builder.AddAttribute(k++, _attrName, EventCallback.Factory.Create(this, e => this.ActionSelected?.Invoke(Par_ID)));
+                                builder.AddEventStopPropagationAttribute(2, "onclick", true);
                             }
                         }
                         else
                         {
                             if (_attrName.Equals("content"))
                             {
-                                builder.AddContent(k++, _value.ToString());
+                                builder.AddContent(3, _value.ToString());
 
                             }
                             else
@@ -138,7 +133,7 @@ namespace BlazorSvgHelper
                                     _attrName = _attrName.Replace("_", "-");
                                 }
 
-                                builder.AddAttribute(k++, _attrName, _value.ToString());
+                                builder.AddAttribute(4, _attrName, _value.ToString());
 
                             }
 
@@ -148,39 +143,39 @@ namespace BlazorSvgHelper
             }
 
 
-      PropertyInfo pi_Children = _Item.GetType().GetProperty("Children");
+            PropertyInfo pi_Children = _Item.GetType().GetProperty("Children");
 
-      if (pi_Children != null)
-      {
-        List<object> children = pi_Children.GetValue(_Item) as List<object>;
+            if (pi_Children != null)
+            {
+                List<object> children = pi_Children.GetValue(_Item) as List<object>;
 
-        foreach (object item in children)
-        {
-          Cmd_Render(item, k, builder, Par_ID);
+                foreach (object item in children)
+                {
+                    Cmd_Render(item, k++, builder, Par_ID);;
+                }
+            }
+
+
+
+            if (CaptureRef)
+            {
+                builder.AddElementReferenceCapture(5, (elementReference) =>
+                {
+
+                    Elementreferences_Dictionary.Add(_value_id, elementReference);
+
+                });
+            }
+
+            builder.CloseElement();
+
+            builder.CloseRegion();
         }
-      }
 
 
-
-      if (CaptureRef)
-      {
-        builder.AddElementReferenceCapture(k++, (elementReference) =>
+        public void Cmd_Clicked(MouseEventArgs e, int i)
         {
-          
-          Elementreferences_Dictionary.Add(_value_id, elementReference);
-          
-        });
-      }
-
-      builder.CloseElement();
-    
+            ActionClicked?.Invoke(e, i);
+        }
     }
-
-
-      public void Cmd_Clicked(MouseEventArgs e)
-      {
-          ActionClicked?.Invoke(e);
-      }
-
-  }
 }

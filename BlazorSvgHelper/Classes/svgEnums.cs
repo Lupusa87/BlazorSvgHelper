@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace BlazorSvgHelper.Classes
 {
+    public enum BoolOptionsEnum
+    {
+        none,
+        Yes,
+        No,
+
+    }
 
     public enum strokeLinecap
     {

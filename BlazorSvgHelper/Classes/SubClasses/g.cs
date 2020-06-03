@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BlazorSvgHelper.Classes.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorSvgHelper.Classes.SubClasses
 {
-    public class g:strokeBase
+    public class g:strokeBase, IEventBase
     {
         public string id { get; set; } = null;
         public double font_size { get; set; } = double.NaN;
@@ -16,7 +17,8 @@ namespace BlazorSvgHelper.Classes.SubClasses
         public string transform { get; set; } = null;
         public ICollection<object> Children { get; set; } = new List<object>();
 
+        public BoolOptionsEnum onclick { get; set; } = BoolOptionsEnum.none;
+        public BoolOptionsEnum StopPropagation { get; set; } = BoolOptionsEnum.none;
 
-        public string onclick { get; set; } = null;
     }
 }

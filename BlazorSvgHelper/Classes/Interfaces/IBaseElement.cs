@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace BlazorSvgHelper.Classes.SubClasses
+namespace BlazorSvgHelper.Classes.Interfaces
 {
     public interface IBaseElement
     {
